@@ -3,11 +3,11 @@ Natural calamities are devastating to humanity. It is near impossible to predict
 
 For explanation sake, let A be person affected by disaster, let B be his friend/relative. 
 
-B unable to contact A, suspects he is trapped due to disaster. 
-B uploads A’s details on the webapp, adding A and his details. B also provides information like approximate location. 
-Using approximate location, relief workers go to that area and broadcast signal via bluetooth. 
-A will have an app that can receive this signal. Upon receiving it, it plots path from A to to the relief worker.
-Once A reaches the relief camp, he will be marked as rescued, thus B can be assured he is safe.
+* B unable to contact A, suspects he is trapped due to disaster. 
+* B uploads A’s details on the webapp, adding A and his details. B also provides information like approximate location. 
+* Using approximate location, relief workers go to that area and broadcast signal via bluetooth. 
+* A will have an app that can receive this signal. Upon receiving it, it plots path from A to to the relief worker.
+* Once A reaches the relief camp, he will be marked as rescued, thus B can be assured he is safe.
 
 This can also be used by government using Aadhar. This will give the government a clearer picture of all the people displaced and the fatalities. This can also be used to check the status of people displaced due to natural disasters.
 During deployment, bluetooth used by the relief worker will be replaced by radio frequency, to further the range.
