@@ -13,7 +13,7 @@ This can also be used by government using Aadhar. This will give the government 
 During deployment, bluetooth used by the relief worker will be replaced by radio frequency, to further the range.
 
 Our project will have:
-App where victim's relative upload his data and can check his status.
-App used by relief victim/ relief camps to locate and update status of victim.
-App used by victim to be rescued by relief worker. 
+* App where victim's relative upload his data and can check his status.
+* App used by relief victim/ relief camps to locate and update status of victim.
+* App used by victim to be rescued by relief worker. 
 
