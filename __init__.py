@@ -7,5 +7,17 @@ app = Flask(__name__)
 def homepage():
     return render_template('main.html')
 
+@app.route('/helpme/')
+def helpme():
+    return render_template('helpme.html')
+
+@app.route('/report/')
+def report():
+    return render_template('report.html')
+
+@app.route('/locate/')
+def locate():
+    return render_template('locate.html')
+    
 if __name__ == "__main__":
     app.run()
