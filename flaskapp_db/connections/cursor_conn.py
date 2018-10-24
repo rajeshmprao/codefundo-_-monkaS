@@ -1,6 +1,9 @@
 import pymysql
-
-def cursor_conn(host, user, password):
+import os
+host = '127.0.0.1'
+user = os.environ['user']
+password = os.environ['pass']
+def cursor_conn():
     conn = pymysql.connect(host=host,
                            user=user,
                            password=password,
