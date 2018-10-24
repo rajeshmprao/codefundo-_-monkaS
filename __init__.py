@@ -10,7 +10,7 @@ class RegistrationForm(Form):
     mobile = TextField('Your Mobile Number', [validators.Length(min=6, max=12)])
     email = TextField('Email Address', [validators.Length(min=6, max=50)])
     
-
+'''
 class RegistrationForm(Form):
     missing_name = TextField('Missing Person Name', [validators.Length(min=4, max=20)])
     latitude = TextField('Latitude', [validators.Required()])
@@ -18,7 +18,7 @@ class RegistrationForm(Form):
     name = TextField('Your Name', [validators.Length(min=4, max=20)])
     mobile = TextField('Your Mobile Number', [validators.Length(min=6, max=12)])
     email = TextField('Email Address', [validators.Length(min=6, max=50)])
-    
+'''    
 
 app = Flask(__name__)
 app.secret_key = os.environ['secret']
