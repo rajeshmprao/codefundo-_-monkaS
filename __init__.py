@@ -83,7 +83,7 @@ def map():
     return render_template('map.html')
 
 @app.route('/geolocation/')
-def map():
+def geolocation():
     return render_template('geolocation.html')
 
 
