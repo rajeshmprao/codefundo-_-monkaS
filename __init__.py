@@ -82,6 +82,11 @@ def locate():
 def map():
     return render_template('map.html')
 
+@app.route('/geolocation/')
+def map():
+    return render_template('geolocation.html')
+
+
 @app.route('/login/')
 def login():
     flash('Login ples')
