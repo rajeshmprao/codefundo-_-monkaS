@@ -1,7 +1,8 @@
 from flaskapp_db.connections import cursor_conn
-user = 'root'
-password = 'bakra123'
+import os
 host = '127.0.0.1'
+user = os.environ["user"]
+password = os.environ["pass"]
 
 cursor, conn = cursor_conn(host, user, password)
 
