@@ -68,5 +68,9 @@ def report():
 def locate():
     return render_template('locate.html')
 
+@app.route('/map/')
+def locate():
+    return render_template('map.html')
+
 if __name__ == "__main__":
     app.run()
