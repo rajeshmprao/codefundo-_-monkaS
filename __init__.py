@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 from flask import Flask, render_template, flash
-=======
-from flask import Flask, render_template
->>>>>>> 0b713eddc66e01ad0a66d94e98c7e2aec729aee7
 from wtforms import Form, BooleanField, TextField, PasswordField, validators
 import sys
 import os
