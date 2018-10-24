@@ -1,7 +1,20 @@
+<<<<<<< HEAD
 from flask import Flask, render_template, flash
+=======
+from flask import Flask, render_template
+>>>>>>> 0b713eddc66e01ad0a66d94e98c7e2aec729aee7
 from wtforms import Form, BooleanField, TextField, PasswordField, validators
 import sys
 import os
+class RegistrationForm(Form):
+    missing_name = TextField('Missing Person Name', [validators.Length(min=4, max=20)])
+    latitude = TextField('Latitude', [validators.Required()])
+    longitude = TextField('Longitude', [validators.Required()])
+    name = TextField('Your Name', [validators.Length(min=4, max=20)])
+    mobile = TextField('Your Mobile Number', [validators.Length(min=6, max=12)])
+    email = TextField('Email Address', [validators.Length(min=6, max=50)])
+    
+
 class RegistrationForm(Form):
     missing_name = TextField('Missing Person Name', [validators.Length(min=4, max=20)])
     latitude = TextField('Latitude', [validators.Required()])
