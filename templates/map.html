@@ -16,7 +16,7 @@
 	<script>
 		var mymap = L.map('mapid').setView([13, 9], 0);
 
-L.tileLayer('tiles/{z}/{x}/{y}.png', {
+L.tileLayer('../static/maps/tiles/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(mymap);
 L.marker([51.5, -0.09]).addTo(mymap)
