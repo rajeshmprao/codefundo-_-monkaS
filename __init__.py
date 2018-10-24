@@ -79,7 +79,7 @@ def locate():
     return render_template('locate.html')
 
 @app.route('/map/')
-def locate():
+def map():
     return render_template('map.html')
 
 @app.route('/login/')
