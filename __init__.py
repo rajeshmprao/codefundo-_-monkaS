@@ -158,7 +158,6 @@ def login():
             return render_template("login.html")
 
     except Exception as e:
-        raise
         error = "Account does not exist. Click signup to create one."
         flash(error)
         return render_template("login.html")
