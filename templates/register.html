@@ -2,24 +2,32 @@
 
 {% block body %}
 
-<div class="col-md-4 offset-md-4">
-    <h1>Register</h1>
-<form>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <p>Don't have an Account? <a href="/register/"> Sign up Now</a></p>
-    <div class="btn-group" role="group" aria-label="Basic example"></div>
-        <button type="submit" class="btn btn-primary">Login as Reporter</button>
-        <button type="submit" class="btn btn-primary">Login as Relief Worker</button>
-    </div>
-</form>
+<body>
+	<div class = "container">
+		<h4>Register</h4>
+		<br>
+		{% from "_formhelpers.html" import render_field %}
+		<form method=post action="/register/">
+			<dl>
+				{{render_field(form.username)}}
+				{{render_field(form.password)}}
+				{{render_field(form.confirm)}}
+                {{render_field(form.name)}}
+				{{render_field(form.email)}}
+                {{render_field(form.mobile)}}
+                {{render_field(form.role)}}
+                {{render_field(form.accept_tos)}}
+                
+                
+			</dl>
+			<p><input type=submit value=Register></p>
+		</form>
+		
+		{% if error %}
+			<p class="error"><strong>Error:</strong>{{error}}</p>
+		{% endif %}
 
-</div>
+	</div>
+</body>
+
 {% endblock %}
