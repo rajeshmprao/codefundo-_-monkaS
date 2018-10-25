@@ -12,9 +12,10 @@ from OpenSSL import SSL
 import os
 
 
-context = SSL.Context(SSL.SSLv23_METHOD)
-context.use_privatekey_file('host.key')
-context.use_certificate_file('host.crt')
+#context = SSL.Context(SSL.SSLv23_METHOD)
+context = ('host.cert','host.key')
+#context.use_privatekey_file('host.key')
+#context.use_certificate_file('host.cert')
 app = Flask(__name__)
 # app.secret_key = os.environ['secret']
 
