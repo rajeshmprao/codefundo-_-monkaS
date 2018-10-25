@@ -1,7 +1,13 @@
 {% extends "header.html" %}
 
 {% block body %}
-<div class="container-fluid">
+		 <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+<style>
+#map { position:absolute; top:0; bottom:0; width:50%; left:50%}
+</style>
+<div>
+<div class="container-fluid" float:left>
     <form action="" class="form-group" method="post" >
         <div class="form-group">
             <label for="InputName">Missing Person Name</label>
@@ -23,8 +29,26 @@
         <input class="btn btn-primary" type="submit" value="Submit" name="action">
     </form>
     <a href="/check/" class="btn btn-primary">Click to check status</a>
-
 </div>
+<div id='map'></div>
+<div>
+<script>
+	L.mapbox.accessToken = 'pk.eyJ1IjoiY2NhbnRleSIsImEiOiJjaWVsdDNubmEwMGU3czNtNDRyNjRpdTVqIn0.yFaW4Ty6VE3GHkrDvdbW6g';
+var map = L.mapbox.map('map', 'mapbox.streets').setView([38.91338, -77.03236], 16);
 
+	map.on('click', addMarker);
+
+function addMarker(e){
+  if (typeof circleMarker !== "undefined" ){
+    map.removeLayer(circleMarker);
+  }
+  //add marker
+  circleMarker = new  L.circle(e.latlng, 200, {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5
+            }).addTo(map);
+}
+</script>
 <p> report missing person goes here</p>
 {% endblock %}
