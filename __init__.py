@@ -7,10 +7,14 @@ import pymysql
 from pymysql import escape_string as thwart
 from flaskapp_db.connections import cursor_conn
 import gc 
+from OpenSSL import SSL
 
 import os
 
 
+context = SSL.Context(SSL.SSLv23_METHOD)
+context.use_privatekey_file('host.key')
+context.use_certificate_file('host.crt')
 app = Flask(__name__)
 # app.secret_key = os.environ['secret']
 
@@ -276,5 +280,5 @@ def register():
     return render_template('register.html', form=form)
 
 if __name__ == "__main__":
-    # app.run(ssl_context='adhoc')
+    app.run(ssl_context=context)
     app.run()
