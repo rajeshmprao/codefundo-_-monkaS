@@ -200,6 +200,7 @@ def update():
 
 
 @app.route('/login/', methods = ["GET", "POST"])
+@logout_required
 def login():
     error = ''
     try:
@@ -214,14 +215,8 @@ def login():
                 session['logged_in'] = role_dict[request.form['action']]
                 session['username'] = request.form['username']
                 print(session)
-
                 flash("Logged in successfully")
-
-                if role_dict[request.form['action']] == 'relief':
-                    return redirect(url_for('locate'))
-                elif role_dict[request.form['action']] == 'report':
-                    return redirect(url_for('report'))
-            
+                return redirect(url_for('homepage'))            
             else:
                 error = "Invalid credentials, try again."            
             gc.collect()
@@ -237,6 +232,7 @@ def login():
 
 
 @app.route('/register/', methods = ["GET", "POST"])
+@logout_required
 def register():
     form = register_form(request.form)
     if request.method == "POST":
@@ -271,15 +267,12 @@ def register():
             
             session['logged_in'] = role
             session['username'] = username
-
-            if role == 'relief':
-                return redirect(url_for('locate'))
-            elif role == 'report':
-                return redirect(url_for('report'))
+            return render_template('main.html')
+            
         else:
             flash("Error in form. Please Fill Again")
     return render_template('register.html', form=form)
 
 if __name__ == "__main__":
-    app.run(ssl_context=context)
+    # app.run(ssl_context=context)
     app.run()
