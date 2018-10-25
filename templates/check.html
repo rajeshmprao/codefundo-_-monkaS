@@ -1,0 +1,32 @@
+{% extends "header.html" %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    {% for heading in result[0].keys() %}
+                    <th scope="col">{{heading}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result %}
+                <tr>
+                <th scope="row">{{ loop.index }}</th>
+                {% for vals in row.values() %}
+                <td>{{ vals }}</td>
+                {% endfor %}
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    <a href="/report/" class="btn btn-primary">Click to report more people</a>
+
+</div>
+
+<p> report missing person goes here</p>
+{% endblock %}
