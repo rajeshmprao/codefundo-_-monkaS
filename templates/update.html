@@ -1,0 +1,23 @@
+{% extends "header.html" %}
+
+{% block body %}
+<div class="col-md-4 offset-md-4">
+    <form action="" class="form-group" method="post" >
+        <div class="form-group">
+                <label for="InputyourMob">Update Victim Status</label>
+                <input type="text" class="form-control form-control-sm" id="InputyourMob" aria-describedby="NameHelp" placeholder="Enter Victim Mobile Number" name="mobile" value="{{request.form.mobile}}">
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Update victim status to:
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <input class="dropdown-item" type="submit" value="rescued" name="action">
+              <input class="dropdown-item" type="submit" value="dead" name="action">
+            </div>
+          </div>
+    </form>
+
+</div>
+
+{% endblock %}

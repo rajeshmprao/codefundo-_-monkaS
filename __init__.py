@@ -57,7 +57,17 @@ def report_login_required(f):
             flash("You need to login as reporter")
             return redirect(url_for('login'))
     return wrap
-    
+
+def logout_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        print(session)
+        if 'logged_in' not in session:
+            return f(*args, **kwargs)
+        else:
+            flash("You need to logout first")
+            return redirect(url_for('homepage'))
+    return wrap
 
 
 @app.route('/')
@@ -77,6 +87,9 @@ def report():
             latitude = request.form["latitude"]
             longitude = request.form["longitude"]
             mobile = request.form["mobile"]
+            if name == "" or latitude == "" or longitude == "" or mobile == "":
+                flash("Please fill corect data")
+                return render_template('report.html')
             c, conn = cursor_conn()
 
             x = c.execute("SELECT mobile FROM FLASKAPP.users WHERE username = (%s)",
@@ -99,6 +112,34 @@ def report():
         return render_template('report.html')
     except Exception as e:
         flash("Please fill corect data")
+        return render_template('report.html')
+        
+
+@app.route('/check/')
+@report_login_required
+def check():
+    try:
+        c, conn = cursor_conn()
+
+        x = c.execute("SELECT mobile FROM FLASKAPP.users WHERE username = (%s)",
+                        (thwart(session['username'])))
+        usermobile = c.fetchone()['mobile']
+        print(usermobile)
+        c.execute("SELECT name, mobile, status from FLASKAPP.victims WHERE reporterMobile =  (%s)",
+                    (thwart(usermobile)))
+
+        result = c.fetchall()
+        if len(result) == 0:
+            flash("No victims reported")
+            return render_template('report.html')
+        c.close()
+        conn.close()
+        gc.collect()
+        return render_template("check.html", result = result)
+
+    except Exception as e:
+        raise
+        flash("No victims reported")
         return render_template('report.html')
 
 
@@ -123,6 +164,40 @@ def logout():
     flash("You have been logged out!")
     gc.collect()
     return redirect(url_for('homepage'))
+
+@app.route('/update/', methods = ["GET", "POST"])
+@relief_login_required
+def update():
+    try:
+        if request.method == "POST":
+            mobile = request.form["mobile"]
+            if mobile == "":
+                flash("Please fill corect data")
+                return render_template('update.html')
+            c, conn = cursor_conn()
+
+            x = c.execute("SELECT * FROM FLASKAPP.victims WHERE mobile = (%s)",
+                            (thwart(mobile)))
+            if int(x) <= 0:
+                flash("This mobile number has not been reported")
+                return render_template("update.html")
+
+            x = c.execute("UPDATE FLASKAPP.victims SET status = %s WHERE mobile= (%s)",
+                        (thwart(request.form['action']), thwart(mobile)))
+
+            conn.commit()
+            flash("Person Status updated to {}".format(request.form['action']))
+            c.close()
+            conn.close()
+            gc.collect()
+
+        return render_template("update.html")
+
+    except Exception as e:
+        raise
+        flash("Please fill corect data")
+        return render_template('report.html')
+
 
 @app.route('/login/', methods = ["GET", "POST"])
 def login():
