@@ -5,7 +5,7 @@ def victims():
     c, conn = cursor_conn()
     c.execute('''CREATE TABLE IF NOT EXISTS FLASKAPP.victims (
                 name VARCHAR(20) NOT NULL,
-                reporterMobile VARCHAR(20),
+                reporterMobile VARCHAR(20) NOT NULL,
                 mobile VARCHAR(20) PRIMARY KEY,
                 latitude VARCHAR(55) NOT NULL,
                 longitude VARCHAR(55) NOT NULL,

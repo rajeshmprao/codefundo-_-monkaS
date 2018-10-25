@@ -10,11 +10,38 @@
 </html>
 
 <header>
-	{% with messages = get_flashed_messages() %}
+	
+		<nav  class="navbar navbar-light bg-light">
+				<a style="margin-top: -25px;margin-bottom:-20px;"class="navbar-brand" href="/">
+					<img src="{{url_for('static', filename='favicon.ico')}}" width="30" height="30" class="d-inline-block align-top" alt="">
+					Victim Locator
+				</a>
+				<ul class="navbar navbar-default list-unstyled">
+						{% if session.logged_in %}
+						<li>
+								<a style="margin-bottom:-15px;"class="btn btn-primary" href="/logout/">Logout </a>
+						</li>
+						{% endif %}
+						{% if 'logged_in' not in session %}
+						<li>
+								<a style="margin-bottom:-15px;"class="btn btn-primary" href="/login/">Login </a>
+								<a style="margin-bottom:-15px;"class="btn btn-warning" href="/register/">Sign up </a>
+
+						</li>
+						{% endif %}
+				</ul>
+
+		</nav>
+
+
+</header>
+
+<body>
+		{% with messages = get_flashed_messages() %}
 		{% if messages %}
 		  {% for message in messages %}
 		  <div class=container>
-				<div class="alert alert-primary alert-dismissable">
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
 				  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
 				  <strong>{{message}}</strong>
 				</div>
@@ -22,16 +49,6 @@
 		  {% endfor %}
 		{% endif %}
 	{% endwith %}
-		<nav class="navbar navbar-light bg-light">
-				<a class="navbar-brand" href="/">
-					<img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-					Victim Locator
-				</a>
-			</nav>
-
-</header>
-
-<body>
     {% block body %} {% endblock %}
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
