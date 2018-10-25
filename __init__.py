@@ -210,4 +210,5 @@ def register():
     return render_template('register.html', form=form)
 
 if __name__ == "__main__":
-    app.run(ssl_context='adhoc')
+    # app.run(ssl_context='adhoc')
+    app.run()
