@@ -2,43 +2,28 @@
 
 {% block body %}
 <div class="container-fluid">
-    <form>
+    <form action="" class="form-group" method="post" >
         <div class="form-group">
             <label for="InputName">Missing Person Name</label>
-            <input type="name" class="form-control form-control-sm" id="InputName" aria-describedby="NameHelp" placeholder="Enter Name">
+            <input type="text" class="form-control form-control-sm" id="InputName" aria-describedby="NameHelp" placeholder="Enter Victim Name" name="name"value="{{request.form.name}}">
         </div>
 
         <div class="form-group">
             <label for="InputLat">Missing Person Latitude</label>
-            <input type="name" class="form-control form-control-sm" id="InputLat" aria-describedby="NameHelp" placeholder="Enter Latitude">
+            <input type="text" class="form-control form-control-sm" id="InputLat" aria-describedby="NameHelp" placeholder="Enter Latitude" name="latitude" value="{{request.form.latitude}}">
         </div>
         <div class="form-group">
                 <label for="InputLong">Missing Person Longitude</label>
-                <input type="name" class="form-control form-control-sm" id="InputLong" aria-describedby="NameHelp" placeholder="Enter Longitude">
-        </div>
-        <div class="form-group">
-                <label for="InputyourName">Your Name</label>
-                <input type="name" class="form-control form-control-sm" id="InputyourName" aria-describedby="NameHelp" placeholder="Enter Your Name">
+                <input type="text" class="form-control form-control-sm" id="InputLong" aria-describedby="NameHelp" placeholder="Enter Longitude" name="longitude" value="{{request.form.longitude}}">
         </div>
         <div class="form-group">
                 <label for="InputyourMob">Your Mobile Number</label>
-                <input type="name" class="form-control form-control-sm" id="InputyourMob" aria-describedby="NameHelp" placeholder="Enter Your Mobile Number">
+                <input type="text" class="form-control form-control-sm" id="InputyourMob" aria-describedby="NameHelp" placeholder="Enter Victim Mobile Number" name="mobile" value="{{request.form.mobile}}">
         </div>
-        <!-- <div class="form-group">
-            <label for="InputName">Missing Person Name</label>
-            <input type="name" class="form-control form-control-sm" id="InputName" aria-describedby="NameHelp" placeholder="Enter Name">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div> -->
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <input class="btn btn-primary" type="submit" value="Submit" name="action">
     </form>
+    <a href="/check/" class="btn btn-primary">Click to check status</a>
+
 </div>
 
 <p> report missing person goes here</p>

@@ -35,7 +35,7 @@ def relief_login_required(f):
             flash("Logout and login as relief worker")
             return redirect(url_for('homepage'))
         else:
-            flash("You need to login first")
+            flash("You need to login first as relief worker")
             return redirect(url_for('login'))
         
     return wrap
@@ -49,7 +49,7 @@ def report_login_required(f):
             flash("Logout and login as reporter")
             return redirect(url_for('homepage'))
         else:
-            flash("You need to login first")
+            flash("You need to login as reporter")
             return redirect(url_for('login'))
     return wrap
     
@@ -66,45 +66,36 @@ def helpme():
 @app.route('/report/', methods = ["GET", "POST"])
 @report_login_required
 def report():
-    # try:
-    #     form = RegistrationForm(request.form)
+    try:
+        if request.method == "POST":
+            name = request.form["name"]
+            latitude = request.form["latitude"]
+            longitude = request.form["longitude"]
+            mobile = request.form["mobile"]
+            c, conn = cursor_conn()
 
-    #     if request.method == "POST" and form.validate():
-    #         missing_name = form.missing_name.data 
-    #     latitude = form.latitude.data
-    #     longitude = form.longitude.data
-    #     name = form.name.data
-    #     mobile = form.mobile.data
-    #     email = form.email.data
-    #     c, conn = connection()
+            x = c.execute("SELECT mobile FROM FLASKAPP.users WHERE username = (%s)",
+                            (thwart(session['username'])))
+            usermobile = c.fetchone()['mobile']
+            c.execute("INSERT INTO FLASKAPP.victims (name, reporterMobile, mobile, latitude, longitude, status) VALUES (%s, %s, %s, %s, %s, %s)",
+                        (thwart(name), thwart(usermobile), thwart(mobile), thwart(latitude), thwart(longitude), thwart("not_rescued")))
 
-    #     x = c.execute("SELECT * FROM users WHERE username = (%s)",
-    #                     (thwart(username)))
+            conn.commit()
+            flash("Person Added. Relief workers will find for your loved one!")
+            c.close()
+            conn.close()
+            gc.collect()
 
-    #     if int(x) > 0:
-    #         flash("That username is already taken, please choose another")
-    #         return render_template('register.html', form=form)
+            return redirect(url_for('report'))
+        return render_template("report.html")
 
-    #     else:
-    #         c.execute("INSERT INTO users (username, password, email, tracking) VALUES (%s, %s, %s, %s)",
-    #                     (thwart(username), thwart(password), thwart(email), thwart("/introduction-to-python-programming/")))
-            
-    #         conn.commit()
-    #         flash("Thanks for registering!")
-    #         c.close()
-    #         conn.close()
-    #         gc.collect()
+    except pymysql.IntegrityError as e:
+        flash("Person has already been reported")
+        return render_template('report.html')
+    except Exception as e:
+        flash("Please fill corect data")
+        return render_template('report.html')
 
-    #         session['logged_in'] = True
-    #         session['username'] = username
-
-    #         return redirect(url_for('dashboard'))
-
-    # return render_template("register.html", form=form)
-
-    # except Exception as e:
-    #     return(str(e))
-    return render_template('report.html')
 
 @app.route('/locate/')
 @relief_login_required
