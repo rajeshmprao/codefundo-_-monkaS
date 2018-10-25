@@ -1,7 +1,5 @@
-from flaskapp_db.connections import cursor_conn
+from flaskapp_db.create import setup, users, victims
 
-cursor, conn = cursor_conn()
-
-cursor.execute('SHOW DATABASES')
-result = cursor.fetchall()
-print(result)
+setup()
+users()
+victims()
