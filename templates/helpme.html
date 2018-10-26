@@ -10,9 +10,17 @@
 </style>
 
 <div id='map'></div>
-<input id="clickMe" type="button" value="clickme" onclick="getLocation();" />
+<input id="clickMe" type="button" value="Update Location" onclick="getLocation();" />
 
 <script>
+getLocation();
+  {% for row in variable %}
+var e = {"name":{{ row["name"]| tojson}}, "mobile":{{ row["mobile"]| tojson}}, "latlng":{"lat":{{ row["latitude"] | tojson }}, "lng": {{ row["longitude"] | tojson }} }};
+
+    console.log(e)
+	addMarker(e)
+
+  {% endfor %}
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWRpdGh5YWthbWF0aCIsImEiOiJjam5sazVmcG8xZWplM3Z0YWoyOWtybGRlIn0.-xjjqOFJi5DieDNeAnHT5A';
 var map = new mapboxgl.Map({
     container: 'map', // container id
@@ -36,7 +44,6 @@ function addMarker(e){
     
     marker
     .setLngLat([ e.latlng.lng, e.latlng.lat])
-    .setPopup(popup)
 .addTo(map);
 
 }
