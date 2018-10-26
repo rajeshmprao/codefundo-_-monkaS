@@ -108,7 +108,7 @@ def helpme():
         for worker in relief_data:
             dist = latlongdist(lat, lng, float(worker['latitude']), float(worker['longitude']))
             print(dist)
-            if dist > 1:
+            if dist < 50:
                 to_display.append(worker)
         print(to_display)
         # print("gg")
