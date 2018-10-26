@@ -19,6 +19,7 @@
 				<ul class="navbar navbar-default list-unstyled">
 						{% if session.logged_in %}
 						<li>
+								<h4 style="margin-bottom:-15px;"class="btn btn-alert disabled" href="/logout/">Hi {{session['username']}} </h4>
 								<a style="margin-bottom:-15px;"class="btn btn-primary" href="/logout/">Logout </a>
 						</li>
 						{% endif %}
