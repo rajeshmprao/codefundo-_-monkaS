@@ -35,7 +35,7 @@
 </div>
 <script>
 	L.mapbox.accessToken = 'pk.eyJ1IjoiY2NhbnRleSIsImEiOiJjaWVsdDNubmEwMGU3czNtNDRyNjRpdTVqIn0.yFaW4Ty6VE3GHkrDvdbW6g';
-var map = L.mapbox.map('map', 'mapbox.streets').setView([13, 77], 8);
+var map = L.mapbox.map('map', 'mapbox.streets', {worldCopyJump:true}).setView([13, 77], 8);
 
 	map.on('click', addMarker);
 
