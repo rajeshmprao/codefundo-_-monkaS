@@ -17,7 +17,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYWRpdGh5YWthbWF0aCIsImEiOiJjam5sazVmcG8xZWplM
 var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/mapbox/streets-v9',
-    center: [-96, 37.8], // starting position
+    center: [ 74.7977848,13.013009199999999], // starting position
     zoom: 3 // starting zoom
 });
 
@@ -33,16 +33,17 @@ map.addControl(new mapboxgl.GeolocateControl({
     var e = {"latlng":{"lat":{{ row["latitude"] | tojson }}, "lng": {{ row["longitude"] | tojson }} }};
 
     console.log(e)
-    addMarker(e);
 
   {% endfor %}
+var popup = new mapboxgl.Popup()
+.setHTML('<h3>Reykjavik Roasters</h3><p>A good coffee shop</p>');
 function addMarker(e){
-  circleMarker = new  L.circle(e.latlng, 200, {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.5
-            }).addTo(map);
+    var marker = new mapboxgl.Marker()
+    .setLngLat([ e.latlng.lng, e.latlng.lat])
+    .setPopup(popup)
+.addTo(map);
 
 }
+    addMarker("gg");
 </script>
 {% endblock %}
