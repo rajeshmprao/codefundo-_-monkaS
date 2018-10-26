@@ -17,7 +17,7 @@ import os
 #context.use_privatekey_file('host.key')
 #context.use_certificate_file('host.cert')
 app = Flask(__name__)
-app.secret_key = os.environ['secret']
+# app.secret_key = os.environ['secret']
 
 def login_required(f):
     @wraps(f)
