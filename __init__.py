@@ -147,7 +147,7 @@ def check():
 @relief_login_required
 def locate():
     c, conn = cursor_conn()
-    x = c.execute("SELECT latitude, longitude FROM FLASKAPP.victims WHERE status = 'not_rescued'")
+    x = c.execute("SELECT name, latitude, longitude FROM FLASKAPP.victims WHERE status = 'not_rescued'")
     variable = c.fetchall()
     return render_template('locate.html', variable = variable)
 

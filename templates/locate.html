@@ -30,7 +30,7 @@ map.addControl(new mapboxgl.GeolocateControl({
 }));
 
   {% for row in variable %}
-    var e = {"latlng":{"lat":{{ row["latitude"] | tojson }}, "lng": {{ row["longitude"] | tojson }} }};
+var e = {"name":{{ row["name"]| tojson}}, "latlng":{"lat":{{ row["latitude"] | tojson }}, "lng": {{ row["longitude"] | tojson }} }};
 
     console.log(e)
 	addMarker(e)
@@ -38,7 +38,7 @@ map.addControl(new mapboxgl.GeolocateControl({
   {% endfor %}
 function addMarker(e){
     var popup = new mapboxgl.Popup()
-.setHTML('<h3>Reykjavik Roasters</h3><p>A good coffee shop</p>');
+.setHTML('<h3>'+e.name+'</h3><p>A good coffee shop</p>');
     var marker = new mapboxgl.Marker()
     .setLngLat([ e.latlng.lng, e.latlng.lat])
     .setPopup(popup)
