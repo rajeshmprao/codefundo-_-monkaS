@@ -50,8 +50,13 @@ function addMarker(e){
                 fillOpacity: 0.5
             }).addTo(map);
         //document.getElementById('form').innerHTML = e.latlng;
-    var text = document.getElementById('InputLong');
-    text.value = e.latlng;
+    var lat_text = document.getElementById('InputLat');
+    console.log(e.latlng.lat)
+    lat_text.value = e.latlng.lat;
+    var long_text = document.getElementById('InputLong');    
+    console.log(e.latlng.lng)
+    long_text.value = e.latlng.lng;
+
 }
 </script>
 <p> report missing person goes here</p>
