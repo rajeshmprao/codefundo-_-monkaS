@@ -49,6 +49,14 @@ function addMarker(e){
 .addTo(map);
 
 }
+function addMarker1(e){
+var marker1 = new mapboxgl.Marker()
+    
+    marker1
+    .setLngLat([ e.latlng.lng, e.latlng.lat])
+.addTo(map);
+
+}
 function getLocation() {
     
     if (navigator.geolocation) {
@@ -81,7 +89,7 @@ function updateLocation(e) {
      var lng = datajson.lng;
 	var e = {"latlng":{"lat":lat, "lng": lng }};
     console.log(e);
-	addMarker(e);
+	addMarker1(e);
 }
 
   {% endfor %}
