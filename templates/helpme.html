@@ -31,15 +31,17 @@ var map = new mapboxgl.Map({
 
     var popup = new mapboxgl.Popup()
 .setHTML('<h3>Reykjavik Roasters</h3><p>A good coffee shop</p>');
-
+const marker = new mapboxgl.Marker()
 function addMarker(e){
-    var marker = new mapboxgl.Marker()
+    
+    marker
     .setLngLat([ e.latlng.lng, e.latlng.lat])
     .setPopup(popup)
 .addTo(map);
 
 }
 function getLocation() {
+    
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
     } else {
