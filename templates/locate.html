@@ -2,5 +2,43 @@
 
 {% block body %}
 
-<p> locating missing person goes here</p>
+<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+<style>
+#map { position:absolute; top:9%; bottom:5%; width:90%; left:5%; right:5%}
+#form { position:absolute;  bottom:0.5%; top:95.5%; width:20%; right:40%; left:40%} 
+</style>
+
+<div id='map'></div>
+<a id="form" href="/update/" class="btn btn-primary">Click to update victim status</a>
+
+<script>
+	L.mapbox.accessToken = 'pk.eyJ1IjoiY2NhbnRleSIsImEiOiJjaWVsdDNubmEwMGU3czNtNDRyNjRpdTVqIn0.yFaW4Ty6VE3GHkrDvdbW6g';
+var map = L.mapbox.map('map', 'mapbox.streets').setView([13, 77], 8);
+
+	// map.on('click', addMarker);
+  
+  {% for row in variable %}
+    var e = {"latlng":{"lat":{{ row["latitude"] | tojson }}, "lng": {{ row["longitude"] | tojson }} }};
+
+    console.log(e)
+    addMarker(e);
+
+  {% endfor %}
+//   console.log(e);
+
+function addMarker(e){
+//   if (typeof circleMarker !== "undefined" ){
+//     map.removeLayer(circleMarker);
+//   }
+
+  //add marker
+  circleMarker = new  L.circle(e.latlng, 200, {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5
+            }).addTo(map);
+
+}
+</script>
 {% endblock %}

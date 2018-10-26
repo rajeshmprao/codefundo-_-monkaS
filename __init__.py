@@ -13,11 +13,11 @@ import os
 
 
 #context = SSL.Context(SSL.SSLv23_METHOD)
-context = ('host.cert','host.key')
+# context = ('host.cert','host.key')
 #context.use_privatekey_file('host.key')
 #context.use_certificate_file('host.cert')
 app = Flask(__name__)
-# app.secret_key = os.environ['secret']
+app.secret_key = os.environ['secret']
 
 def login_required(f):
     @wraps(f)
@@ -146,7 +146,10 @@ def check():
 @app.route('/locate/')
 @relief_login_required
 def locate():
-    return render_template('locate.html')
+    c, conn = cursor_conn()
+    x = c.execute("SELECT latitude, longitude FROM FLASKAPP.victims WHERE status = 'not_rescued'")
+    variable = c.fetchall()
+    return render_template('locate.html', variable = variable)
 
 @app.route('/map/')
 # @relief_login_required
