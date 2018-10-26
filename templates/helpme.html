@@ -49,6 +49,15 @@ function addMarker(e){
 .addTo(map);
 
 }
+function addMarker_relief(e){
+    var marker1 = new mapboxgl.Marker()
+
+    
+    marker1
+    .setLngLat([ e.latlng.lng, e.latlng.lat])
+.addTo(map);
+
+}
 function getLocation() {
     
     if (navigator.geolocation) {
@@ -64,28 +73,27 @@ function showPosition(position) {
 }
 
 function updateLocation(e) {
-    console.log(e);
+    // console.log(e);
     //get cur lat, long
     var lat = e.latlng.lat;
     var lng = e.latlng.lng;
     $.ajax({
     type : 'POST',
-    url : "{{url_for('locate')}}",
+    url : "{{url_for('helpme')}}",
     dataType: 'json',
-    data : {'lat':lat, 'lng':lng}
+    data : {'lat':lat, 'lng':lng},
 		success: function(data){
-			for(var i in data)
-{
-	datajson=JSON.parse(i);
-     var lat = datajson.lat;
-     var lng = datajson.lng;
-	var e = {"latlng":{"lat":lat, "lng": lng }};
-    console.log(e);
-	addMarker(e);
-}
+			data.forEach(function(value, index){
+            console.log(value);
+            datajson=value;
+            var lat = datajson.latitude;
+            var lng = datajson.longitude;
+	        var e = {"latlng":{"lat":lat, "lng": lng }};
+        	addMarker(e);
+        });
 
-  {% endfor %}
-		}
+	}
 });
+}
 </script>
 {% endblock %}
