@@ -72,16 +72,17 @@ function showPosition(position) {
 }
 
 function updateLocation(e) {
-    console.log(e);
+    // console.log(e);
     //get cur lat, long
     var lat = e.latlng.lat;
     var lng = e.latlng.lng;
     $.ajax({
     type : 'POST',
-    url : "{{url_for('locate')}}",
+    url : "{{url_for('helpme')}}",
     dataType: 'json',
-    data : {'lat':lat, 'lng':lng}
+    data : {'lat':lat, 'lng':lng},
 		success: function(data){
+<<<<<<< HEAD
 			for(var i in data)
 {
 	datajson=JSON.parse(i);
@@ -91,9 +92,19 @@ function updateLocation(e) {
     console.log(e);
 	addMarker1(e);
 }
+=======
+			data.forEach(function(value, index){
+            console.log(value);
+            datajson=value;
+            var lat = datajson.latitude;
+            var lng = datajson.longitude;
+	        var e = {"latlng":{"lat":lat, "lng": lng }};
+        	addMarker(e);
+        });
+>>>>>>> f0bbfe2a19a5f3fdcd5843b552817c8b0d793879
 
-  {% endfor %}
-		}
+	}
 });
+}
 </script>
 {% endblock %}
