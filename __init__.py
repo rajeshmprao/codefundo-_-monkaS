@@ -112,6 +112,7 @@ def helpme():
             print(dist)
             if dist > 1:
                 to_display.append(worker)
+        print(to_display)
         # print("gg")
         return jsonify(to_display)
     return render_template('helpme.html')
