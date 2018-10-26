@@ -106,7 +106,7 @@ def helpme():
         # print(relief_data)
         to_display = []
         for worker in relief_data:
-            dist = latlongdist(lat, lng, float(worker['latitude']), float(worker['longitude']))
+            dist = latlongdist(float(lat), float(lng), float(worker['latitude']), float(worker['longitude']))
             print(dist)
             if dist < 50:
                 to_display.append(worker)
