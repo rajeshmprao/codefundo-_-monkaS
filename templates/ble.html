@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Disaster Help</title>
+</head>
+</html>
+<body>
+    <input id="clickMe" type="button" value="clickme" onclick="onButtonClick();" />
+</body>
+
+<script>
+function onButtonClick() {
+  console.log('Requesting Bluetooth Device...');
+  navigator.bluetooth.requestDevice(
+    {filters: [{services: ['battery_service']}]})
+  .then(device => {
+    console.log('Connecting to GATT Server...');
+    return device.gatt.connect();
+  })
+  .then(server => {
+    console.log('Getting Battery Service...');
+    return server.getPrimaryService('battery_service');
+  })
+  .then(service => {
+    console.log('Getting Battery Level Characteristic...');
+    return service.getCharacteristic('battery_level');
+  })
+  .then(characteristic => {
+    console.log('Reading Battery Level...');
+    return characteristic.readValue();
+  })
+  .then(value => {
+    let batteryLevel = value.getUint8(0);
+    console.log('> Battery Level is ' + batteryLevel + '%');
+  })
+  .catch(error => {
+    console.log('Argh! ' + error);
+  });
+}
+</script>
