@@ -23,10 +23,10 @@ app = Flask(__name__)
 def latlongdist(lat1, lon1, lat2, lon2):
     R = 6373.0
 
-    lat1 = radians(52.2296756)
-    lon1 = radians(21.0122287)
-    lat2 = radians(52.406374)
-    lon2 = radians(16.9251681)
+    lat1 = radians(lat1)
+    lon1 = radians(lon1)
+    lat2 = radians(lat2)
+    lon2 = radians(lon2)
 
     dlon = lon2 - lon1
     dlat = lat2 - lat1
