@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, url_for, redirect, request, session, make_response
+from flask import Flask, render_template, flash, url_for, redirect, request, session, make_response, jsonify
 import sys
 from forms import register_form
 from passlib.hash import sha256_crypt
@@ -8,6 +8,7 @@ from pymysql import escape_string as thwart
 from flaskapp_db.connections import cursor_conn
 import gc 
 from OpenSSL import SSL
+from math import sin, cos, sqrt, atan2, radians
 
 import os
 
@@ -18,6 +19,26 @@ import os
 #context.use_certificate_file('host.cert')
 app = Flask(__name__)
 # app.secret_key = os.environ['secret']
+app.secret_key = os.environ['secret']
+
+def latlongdist(lat1, lon1, lat2, lon2):
+    R = 6373.0
+
+    lat1 = radians(52.2296756)
+    lon1 = radians(21.0122287)
+    lat2 = radians(52.406374)
+    lon2 = radians(16.9251681)
+
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+
+    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+    distance = R * c
+
+    return distance
+
 
 def login_required(f):
     @wraps(f)
@@ -74,9 +95,27 @@ def logout_required(f):
 def homepage():
     return render_template('main.html')
 
-@app.route('/helpme/')
+@app.route('/helpme/', methods = ["GET", "POST"])
 def helpme():
+    c, conn = cursor_conn()
+
+    if request.method == "POST":
+        lat = request.form['lat']
+        lng = request.form['lng']
+        # print(lat, lng)
+        x = c.execute("SELECT latitude, longitude FROM FLASKAPP.relief;")
+        relief_data = c.fetchall()
+        # print(relief_data)
+        to_display = []
+        for worker in relief_data:
+            dist = latlongdist(lat, lng, float(worker['latitude']), float(worker['longitude']))
+            print(dist)
+            if dist > 1:
+                to_display.append(worker)
+        # print("gg")
+        return jsonify(to_display)
     return render_template('helpme.html')
+    
 
 @app.route('/report/', methods = ["GET", "POST"])
 @report_login_required
@@ -298,20 +337,3 @@ if __name__ == "__main__":
     app.run()
 
 
-def latlongdist(lat1, lon1, lat2, lon2):
-    R = 6373.0
-
-    lat1 = radians(52.2296756)
-    lon1 = radians(21.0122287)
-    lat2 = radians(52.406374)
-    lon2 = radians(16.9251681)
-
-    dlon = lon2 - lon1
-    dlat = lat2 - lat1
-
-    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-    c = 2 * atan2(sqrt(a), sqrt(1 - a))
-
-    distance = R * c
-
-    return distance
