@@ -44,8 +44,11 @@ var map = new mapboxgl.Map({
 const marker = new mapboxgl.Marker()
 function addMarker(e){
     
+var popup = new mapboxgl.Popup()
+		.setHTML('<h4>me<h4>');
     marker
     .setLngLat([ e.latlng.lng, e.latlng.lat])
+    .setPopup(popup)
 .addTo(map);
 
 }
@@ -82,26 +85,14 @@ function updateLocation(e) {
     dataType: 'json',
     data : {'lat':lat, 'lng':lng},
 		success: function(data){
-<<<<<<< HEAD
-			for(var i in data)
-{
-	datajson=JSON.parse(i);
-     var lat = datajson.lat;
-     var lng = datajson.lng;
-	var e = {"latlng":{"lat":lat, "lng": lng }};
-    console.log(e);
-	addMarker1(e);
-}
-=======
 			data.forEach(function(value, index){
             console.log(value);
             datajson=value;
             var lat = datajson.latitude;
             var lng = datajson.longitude;
 	        var e = {"latlng":{"lat":lat, "lng": lng }};
-        	addMarker(e);
+        	addMarker1(e);
         });
->>>>>>> f0bbfe2a19a5f3fdcd5843b552817c8b0d793879
 
 	}
 });
