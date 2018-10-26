@@ -38,7 +38,7 @@ var e = {"name":{{ row["name"]| tojson}}, "mobile":{{ row["mobile"]| tojson}}, "
   {% endfor %}
 function addMarker(e){
     var popup = new mapboxgl.Popup()
-.setHTML('<h3>'+e.name+'</h3><h2>'+e.mobile+'</h2>');
+.setHTML('<h3>'+e.name+'</h3><h4>'+e.mobile+'</h4>');
     var marker = new mapboxgl.Marker()
     .setLngLat([ e.latlng.lng, e.latlng.lat])
     .setPopup(popup)
