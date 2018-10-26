@@ -33,6 +33,7 @@ map.addControl(new mapboxgl.GeolocateControl({
     var e = {"latlng":{"lat":{{ row["latitude"] | tojson }}, "lng": {{ row["longitude"] | tojson }} }};
 
     console.log(e)
+	addMarker(e)
 
   {% endfor %}
 var popup = new mapboxgl.Popup()
