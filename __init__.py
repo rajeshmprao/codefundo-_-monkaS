@@ -13,11 +13,11 @@ import os
 
 
 #context = SSL.Context(SSL.SSLv23_METHOD)
-# context = ('host.cert','host.key')
+#context = ('host.cert','host.key')
 #context.use_privatekey_file('host.key')
 #context.use_certificate_file('host.cert')
 app = Flask(__name__)
-app.secret_key = os.environ['secret']
+#app.secret_key = os.environ['secret']
 
 def login_required(f):
     @wraps(f)
@@ -138,7 +138,7 @@ def check():
         return render_template("check.html", result = result)
 
     except Exception as e:
-        raise
+        print("error")
         flash("No victims reported")
         return render_template('report.html')
 
@@ -277,5 +277,5 @@ def register():
     return render_template('register.html', form=form)
 
 if __name__ == "__main__":
-    # app.run(ssl_context=context)
+    #app.run(ssl_context=context)
     app.run()
