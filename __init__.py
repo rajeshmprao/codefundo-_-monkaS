@@ -233,9 +233,6 @@ def login():
         
     return render_template('login.html' )
 
-@app.route('/ble/')
-def ble():
-    return render_template('ble.html')
 
 @app.route('/register/', methods = ["GET", "POST"])
 @logout_required
