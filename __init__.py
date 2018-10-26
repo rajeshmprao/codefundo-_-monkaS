@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, url_for, redirect, request, session
+from flask import Flask, render_template, flash, url_for, redirect, request, session, make_response
 import sys
 from forms import register_form
 from passlib.hash import sha256_crypt
@@ -143,10 +143,24 @@ def check():
         return render_template('report.html')
 
 
-@app.route('/locate/')
+@app.route('/locate/', methods = ["GET", "POST"])
 @relief_login_required
 def locate():
     c, conn = cursor_conn()
+
+    if request.method == "POST":
+        # e = request.json["e"]
+        # lat = e.latlng.lat
+        # lng = request.form['lng']
+        lat = request.form['lat']
+        lng = request.form['lng']
+        print(lat, lng)
+        x = c.execute("DELETE FROM FLASKAPP.relief WHERE username = (%s);", (session['username']))
+        conn.commit()
+        x = c.execute("INSERT INTO FLASKAPP.relief(username, latitude, longitude) VALUES (%s, %s, %s);", (session['username'], lat, lng))
+        conn.commit()
+        print(x)
+    
     x = c.execute("SELECT name, latitude, longitude, mobile FROM FLASKAPP.victims WHERE status = 'not_rescued'")
     variable = c.fetchall()
     return render_template('locate.html', variable = variable)
